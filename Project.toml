@@ -1,0 +1,13 @@
+name = "QuadraticOutputSystems"
+uuid = "eeef6f08-c54a-435c-b286-62031b64ac95"
+authors = ["Algopaul and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
