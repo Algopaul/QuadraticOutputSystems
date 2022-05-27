@@ -2,9 +2,30 @@ module QuadraticOutputSystems
 
 using MatrixEquations, LinearAlgebra
 
+"""
+h2norm(A, B, M)
+
+Computes the h2norm of quadratic output system
+``
+\\dot x = Ax+Bu
+y  = x' M x
+``
+"""
 function h2norm(A, B, M)
   Q = qo_observability_gramian(A, B, M)
   return sqrt(tr(B'*Q*B))
+end
+
+"""
+h2error(A1, B1, M1, A2, B2, M2)
+"""
+function h2error(A1, B1, M1, A2, B2, M2)
+  X = sylvc(A1, A2', -B1*B2')
+  M1XM2 = M1*X*M2
+  Z = sylvc(A1', A2, -M1XM2)
+  Q1 = qo_observability_gramian(A1, B1, M1)
+  Q2 = qo_observability_gramian(A2, B2, M2)
+  return sqrt(tr(B1'*Q1*B1+B2'*Q2*B2-2*B1'*Z*B2))
 end
 
 """
@@ -32,6 +53,6 @@ function controllability_gramian(A, B)
   return P*P'
 end
 
-export qo_observability_gramian, h2norm
+export qo_observability_gramian, h2norm, h2error
 
 end
