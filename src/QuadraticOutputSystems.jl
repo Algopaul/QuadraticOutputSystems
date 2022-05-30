@@ -3,12 +3,11 @@ module QuadraticOutputSystems
 using MatrixEquations, LinearAlgebra
 
 """
-h2norm(A, B, M)
+`h2norm(A, B, M)`
 
 Computes the h2norm of quadratic output system
 ``
-\\dot x = Ax+Bu
-y  = x' M x
+\\dot x = Ax+Bu, y  = x' M x
 ``
 """
 function h2norm(A, B, M)
@@ -17,7 +16,9 @@ function h2norm(A, B, M)
 end
 
 """
-h2error(A1, B1, M1, A2, B2, M2)
+`h2error(A1, B1, M1, A2, B2, M2)`
+
+Computes the h2-error between two quadratic output systems defined by `A1`, `B1`, and `M1` and `A2`, `B2`, and `M2`, respectively.
 """
 function h2error(A1, B1, M1, A2, B2, M2)
   X = sylvc(A1, A2', -B1*B2')
@@ -29,9 +30,9 @@ function h2error(A1, B1, M1, A2, B2, M2)
 end
 
 """
-qo_observability_gramian(A, B, M)
+`qo_observability_gramian(A, B, M)`
 
-Computes the quadratic-output observability gramian as defined in [1] for a qo system with system matrices ``A, B, M``.
+Computes the quadratic-output observability gramian as defined in BenPD2022 for a quadratic output system with system matrices ``A, B, M``.
 """
 function qo_observability_gramian(A, B, M)
   @assert M == M' "Please provide a symmetric M. Note that this can be assumed for QO-systems without loss of generality"
