@@ -20,12 +20,12 @@ end
 
 Computes the h2-error between two quadratic output systems defined by `A1`, `B1`, and `M1` and `A2`, `B2`, and `M2`, respectively.
 """
-function h2error(A1, B1, M1, A2, B2, M2; Q1 = qo_observability_gramian(A1, B1, M1))
+function h2error(A1, B1, M1, A2, B2, M2; BQ1B = B1'*qo_observability_gramian(A1, B1, M1)*B1)
   X = sylvc(A1, A2', -B1*B2')
   M1XM2 = M1*X*M2
   Z = sylvc(A1', A2, -M1XM2)
   Q2 = qo_observability_gramian(A2, B2, M2)
-  return sqrt(tr(B1'*Q1*B1+B2'*Q2*B2-2*B1'*Z*B2))
+  return sqrt(tr(BQ1B+B2'*Q2*B2-2*B1'*Z*B2))
 end
 
 """
