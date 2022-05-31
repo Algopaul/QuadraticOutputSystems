@@ -13,7 +13,7 @@ A, B, M = generate_stable_qo_system(10, 2)
 
 P = QuadraticOutputSystems.controllability_gramian(A, B)
 @test norm(A*P+P*A'+B*B') < 1e-8
-@test P == P'
+@test norm(P - P') < 1e-8
 @test all(eigvals(P) .>= 0)
 
 Q = qo_observability_gramian(A, B, M)
