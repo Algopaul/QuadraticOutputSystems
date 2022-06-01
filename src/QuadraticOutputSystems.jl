@@ -7,7 +7,7 @@ using MatrixEquations, LinearAlgebra
 
 Computes the h2norm of quadratic output system
 ``
-\\dot x = Ax+Bu, y  = x' M x
+\\dot x = Ax+Bu, y  = x^{\\mathsf{T}} M x
 ``
 """
 function h2norm(A, B, M)
@@ -18,7 +18,11 @@ end
 """
 `h2error(A1, B1, M1, A2, B2, M2)`
 
-Computes the h2-error between two quadratic output systems defined by `A1`, `B1`, and `M1` and `A2`, `B2`, and `M2`, respectively.
+Computes the h2-error between two quadratic output systems defined by `A1`,
+`B1`, and `M1` and `A2`, `B2`, and `M2`, respectively.
+Note that the optional named argumentd `BQ1B`, which defaults to
+`B1'*qo_observability_gramian(A1, B1, M1)*B1` can be passed, if `BQ1B` is known
+beforehand.
 """
 function h2error(A1, B1, M1, A2, B2, M2; BQ1B = B1'*qo_observability_gramian(A1, B1, M1)*B1)
   X = sylvc(A1, A2', -B1*B2')
