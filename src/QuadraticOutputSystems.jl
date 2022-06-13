@@ -3,7 +3,7 @@ module QuadraticOutputSystems
 using MatrixEquations, LinearAlgebra
 
 """
-  h2norm(A, B, M)
+    h2norm(A, B, M)
 
 Computes the h2norm of quadratic output system
 ``
@@ -16,7 +16,7 @@ function h2norm(A, B, M)
 end
 
 """
-  h2error(A1, B1, M1, A2, B2, M2)
+    h2error(A1, B1, M1, A2, B2, M2)
 
 Computes the h2-error between two quadratic output systems defined by `A1`,
 `B1`, and `M1` and `A2`, `B2`, and `M2`, respectively.
@@ -29,7 +29,7 @@ function h2error(A1, B1, M1, A2, B2, M2; BQ1B = B1'*qo_observability_gramian(A1,
 end
 
 """
-  h2error_sqr(A1, B1, M1, A2, B2, M2)
+    h2error_sqr(A1, B1, M1, A2, B2, M2)
 
 Computes the **square** of the h2-error between two quadratic output systems
 defined by `A1`, `B1`, and `M1` and `A2`, `B2`, and `M2`, respectively.
@@ -46,7 +46,7 @@ function h2error_sqr(A1, B1, M1, A2, B2, M2; BQ1B = B1'*qo_observability_gramian
 end
 
 """
-`qo_observability_gramian(A, B, M)`
+    qo_observability_gramian(A, B, M)
 
 Computes the quadratic-output observability gramian as defined in BenPD2022 for a quadratic output system with system matrices ``A, B, M``.
 """
@@ -60,7 +60,7 @@ function qo_observability_gramian(A, B, M)
 end
 
 """
-controllability_gramian(A, B)
+    controllability_gramian(A, B)
 
 Computes the controllability gramian of a system ``\\dot x = Ax+Bu``, which is given by the solution ``P`` of the Lyapunov equation: ``AP+PA^{\\mathsf{T}}+BB^{\\mathsf{T}} = 0``.
 Note that we use the function `plyapc` to ensure a positive (semi) definite solution `P >= 0`.
