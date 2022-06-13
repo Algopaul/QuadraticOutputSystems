@@ -14,6 +14,7 @@ where ``A \in \R^{n \times n}``, ``B \in \R^{n \times m}``, and ``M \in \R^{n \t
 ```@docs
 h2norm
 h2error
+h2error_sqr
 qo_observability_gramian
 ```
 
