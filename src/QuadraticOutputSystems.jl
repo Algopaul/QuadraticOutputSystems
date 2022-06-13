@@ -24,8 +24,11 @@ Note that the optional named argumentd `BQ1B`, which defaults to
 `B1'*qo_observability_gramian(A1, B1, M1)*B1` can be passed, if `BQ1B` is known
 beforehand.
 """
-function h2error(A1, B1, M1, A2, B2, M2; BQ1B = B1'*qo_observability_gramian(A1, B1, M1)*B1)
-  return sqrt(h2error_sqr(A1, B1, M1, A2, B2, M2; BQ1B))
+function h2error(A1, B1, M1, A2, B2, M2;
+    BQ1B = B1'*qo_observability_gramian(A1, B1, M1)*B1,
+    X = sylvc(A1, A2', -B1*B2')
+  )
+  return sqrt(h2error_sqr(A1, B1, M1, A2, B2, M2; BQ1B, X))
 end
 
 """
@@ -37,8 +40,10 @@ Note that the optional named argumentd `BQ1B`, which defaults to
 `B1'*qo_observability_gramian(A1, B1, M1)*B1` can be passed, if `BQ1B` is known
 beforehand.
 """
-function h2error_sqr(A1, B1, M1, A2, B2, M2; BQ1B = B1'*qo_observability_gramian(A1, B1, M1)*B1)
-  X = sylvc(A1, A2', -B1*B2')
+function h2error_sqr(A1, B1, M1, A2, B2, M2;
+    BQ1B = B1'*qo_observability_gramian(A1, B1, M1)*B1,
+    X = sylvc(A1, A2', -B1*B2')
+  )
   M1XM2 = M1*X*M2
   Z = sylvc(A1', A2, -M1XM2)
   Q2 = qo_observability_gramian(A2, B2, M2)
