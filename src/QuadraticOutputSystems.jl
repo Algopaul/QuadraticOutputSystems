@@ -16,7 +16,7 @@ function h2norm(A, B, M)
 end
 
 """
-`h2error(A1, B1, M1, A2, B2, M2)`
+  h2error(A1, B1, M1, A2, B2, M2)
 
 Computes the h2-error between two quadratic output systems defined by `A1`,
 `B1`, and `M1` and `A2`, `B2`, and `M2`, respectively.
@@ -29,7 +29,7 @@ function h2error(A1, B1, M1, A2, B2, M2; BQ1B = B1'*qo_observability_gramian(A1,
 end
 
 """
-  h2error(A1, B1, M1, A2, B2, M2)
+  h2error_sqr(A1, B1, M1, A2, B2, M2)
 
 Computes the **square** of the h2-error between two quadratic output systems
 defined by `A1`, `B1`, and `M1` and `A2`, `B2`, and `M2`, respectively.
