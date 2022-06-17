@@ -1,18 +1,18 @@
 using Random, LinearAlgebra
 
 function generate_stable_qo_system(n, m)
-  A = rand(MersenneTwister(0), n, n)
-  B = rand(MersenneTwister(0), n, m)
-  M = rand(MersenneTwister(0), n, n)
-  M = M+M' # M is assumed symmetric.
-  A = A-I*norm(A)*1.1 # make A stable.
-  return A, B, M
+    A = rand(MersenneTwister(0), n, n)
+    B = rand(MersenneTwister(0), n, m)
+    M = rand(MersenneTwister(0), n, n)
+    M = M + M' # M is assumed symmetric.
+    A = A - I * norm(A) * 1.1 # make A stable.
+    return A, B, M
 end
 
 A, B, M = generate_stable_qo_system(10, 2)
 
 P = QuadraticOutputSystems.controllability_gramian(A, B)
-@test norm(A*P+P*A'+B*B') < 1e-8
+@test norm(A * P + P * A' + B * B') < 1e-8
 @test norm(P - P') < 1e-8
 @test all(eigvals(P) .>= 0)
 
