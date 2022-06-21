@@ -1,6 +1,7 @@
 module QuadraticOutputSystems
 
-using MatrixEquations, LinearAlgebra
+using LinearAlgebra
+using MatrixEquations
 
 """
     h2norm(A, B, M)
