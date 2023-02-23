@@ -55,4 +55,16 @@ end
         β = h2error(A1, B1, M1, A1, B1, M1)
         @test β < 1e-6
     end
+
+    @testset "QH2-error-fast" begin
+        rng = MersenneTwister(0)
+        A1, B1, M1 = generate_stable_qo_system!(rng, 10, 1)
+        A2, B2, M2 = generate_stable_qo_system!(rng, 15, 1)
+        β1 = h2error_sqr(A1, B1, M1, A2, B2, M2)
+        β2 = QuadraticOutputSystems.h2error_sqr_fast(A1, B1, M1, A2, B2, M2)
+        @test_broken β1 ≈ β2
+        # This should be zero.
+        β = QuadraticOutputSystems.h2error_sqr_fast(A1, B1, M1, A1, B1, M1)
+        @test_broken β < 1e-6
+    end
 end
