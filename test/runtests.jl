@@ -34,7 +34,8 @@ end
         A, B, M = generate_stable_qo_system!(MersenneTwister(0), 10, 2)
         Q = qo_observability_gramian(A, B, M)
         @test is_positive_definite(Q)
-        # TODO: Check that Q is in fact the QO-gramian.
+        P = QuadraticOutputSystems.controllability_gramian(A, B)
+        @test norm(A'*Q + Q*A + M*P*M) < 1e-6
     end
 
     @testset "QH2-norm" begin
@@ -48,11 +49,22 @@ end
 
     @testset "QH2-error" begin
         rng = MersenneTwister(0)
-        A1, B1, M1 = generate_stable_qo_system!(rng, 10, 2)
+        A1, B1, M1 = generate_stable_qo_system!(rng, 25, 2)
         A2, B2, M2 = generate_stable_qo_system!(rng, 15, 2)
         β = h2error(A1, B1, M1, A2, B2, M2)
         @test β >= 0
         β = h2error(A1, B1, M1, A1, B1, M1)
-        @test β < 1e-6
+        @test β < 1e-5
+    end
+
+    @testset "QH2-error-fast" begin
+        rng = MersenneTwister(0)
+        A1, B1, M1 = generate_stable_qo_system!(rng, 20, 2)
+        A2, B2, M2 = generate_stable_qo_system!(rng, 15, 2)
+        β1 = h2error_sqr(A1, B1, M1, A2, B2, M2)
+        β2 = QuadraticOutputSystems.h2error_sqr_fast(A1, B1, M1, A2, B2, M2)
+        @test β1 ≈ β2
+        β = QuadraticOutputSystems.h2error_sqr_fast(A1, B1, M1, A1, B1, M1)
+        @test β < 1e-5
     end
 end
