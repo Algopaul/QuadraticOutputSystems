@@ -56,8 +56,8 @@ function h2error_sqr(
     A2,
     B2,
     M2;
-    BQ1B=B1' * qo_observability_gramian(A1, B1, M1) * B1,
-    X=sylvc(A1, A2', -B1 * B2'),
+    BQ1B = B1' * qo_observability_gramian(A1, B1, M1) * B1,
+    X = sylvc(A1, A2', -B1 * B2'),
 )
     M1XM2 = M1 * X * M2
     Z = sylvc(A1', A2, -M1XM2)
@@ -94,8 +94,8 @@ function sylvester_helper(A1, A2, B1, B2, M1, X)
     n = size(A1, 1)
     r = size(A2, 1)
     AS = kron(I(r), A1') + kron(A2', I(n))
-    J2h = AS\(kron(I(r), M1 * X))
-    J2 = -2*kron(B2', B1')*J2h
+    J2h = AS \ (kron(I(r), M1 * X))
+    J2 = -2 * kron(B2', B1') * J2h
     return J2
 end
 
@@ -107,8 +107,8 @@ Computes the quadratic-output observability gramian as defined in BenPD2022 for 
 function qo_observability_gramian(A, B, M)
     @assert M == M' "Please provide a symmetric M. Note that this can be assumed for QO-systems without loss of generality"
     PU = controllability_gramian_factor(A, B)
-    U = plyapc(Array(A'), M*PU)
-    return U*U'
+    U = plyapc(Array(A'), M * PU)
+    return U * U'
 end
 
 """
