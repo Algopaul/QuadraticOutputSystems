@@ -93,9 +93,9 @@ end
 function sylvester_helper(A1, A2, B1, B2, M1, X)
     n = size(A1, 1)
     r = size(A2, 1)
-    AS = kron(I(r), A1') + (kron(A2', I(n)))
+    AS = kron(I(r), A1') + kron(A2', I(n))
     J2h = AS\(kron(I(r), M1 * X))
-    J2 = -2*(kron(B2', B1'))*J2h
+    J2 = -2*kron(B2', B1')*J2h
     return J2
 end
 
